@@ -13,11 +13,11 @@ window.addEventListener('load', function() {
     span.setAttribute('id', 'framerate');
     infoCanvas.appendChild(span);
 
-    listeballs = []
+    ballsEl = []
     for(let i = 0; i < N_BALLS; i++)
     {
-        listeballs[i] = this.document.createElement('li')
-        listeInfosBalles.appendChild(listeballs[i])
+        ballsEl[i] = this.document.createElement('li')
+        listeInfosBalles.appendChild(ballsEl[i])
     }
 
     let balls = [];
@@ -54,7 +54,7 @@ window.addEventListener('load', function() {
         balls.sort((a, b) => a.nbcollisions - b.nbcollisions);
         for(let i = 0; i < N_BALLS; i++)
         {
-            listeballs[i].textContent = balls[i].infos()
+            ballsEl[i].textContent = balls[i].infos()
         }
         span.textContent = ' ('+ frameRate +'fps)'
         frameRate = 0

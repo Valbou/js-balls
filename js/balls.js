@@ -48,7 +48,7 @@ Ball.prototype.update = function() {
 
 Ball.prototype.collisionDetect = function(balls) {
     // Need optimisation !
-    // N_BALLS^2 * framerate = collision test number
+    // N_BALLS * N_BALLS * framerate = collision test number
     // For N_BALLS = 100 -> 600 000 collision tests
 
     for (var j = 0; j < balls.length; j++) {
