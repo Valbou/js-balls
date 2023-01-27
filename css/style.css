@@ -1,0 +1,44 @@
+html {
+    background-color: black;
+}
+
+h1 {
+    color: white;
+    font-weight: bold;
+    text-align: center;
+}
+
+section {
+    height: 80vh;
+    width: 95vw;
+    margin: auto;
+}
+
+canvas {
+    height: 100%;
+    width: 100%;
+    border: 1px solid red;
+}
+
+ul {
+    width: 90%;
+    margin: auto;
+    padding: 20px;
+    color: white;
+    display: flex;
+    justify-content: flex-start;
+    align-items: stretch;
+    flex-flow: row wrap;
+    list-style: none;
+}
+
+li {
+    flex: 1 1 200px;
+    padding: 5px 10px;
+    max-width: 200px;
+}
+
+p {
+    text-align: center;
+    color: white;
+}
