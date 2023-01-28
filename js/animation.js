@@ -13,7 +13,7 @@ window.addEventListener('load', function() {
     span.setAttribute('id', 'framerate');
     infoCanvas.appendChild(span);
 
-    ballsEl = []
+    let ballsEl = [];
     for(let i = 0; i < N_BALLS; i++)
     {
         ballsEl[i] = this.document.createElement('li')
@@ -22,6 +22,7 @@ window.addEventListener('load', function() {
 
     let balls = [];
     let frameRate = 0;
+    let isPaused = false;
 
     function loop() {
         contexte.fillStyle = 'rgba(0, 0, 0, 0.25)'
@@ -29,16 +30,7 @@ window.addEventListener('load', function() {
         frameRate++
 
         for(let i = 0; balls.length < N_BALLS; i++) {
-            var ball = new Ball(
-                i,
-                random(0 + MAX_SIZE, width - MAX_SIZE),
-                random(0 + MAX_SIZE, height - MAX_SIZE),
-                random(-5, 5),
-                random(-5, 5),
-                randomColor(),
-                random(MIN_SIZE, MAX_SIZE),
-                contexte
-            )
+            var ball = new Ball(i, width, height, contexte)
             balls.push(ball)
         }
 
@@ -47,19 +39,40 @@ window.addEventListener('load', function() {
             balls[i].update()
             balls[i].collisionDetect(balls)
         }
-        requestAnimationFrame(loop)
+
+        if (isPaused) {
+            window.cancelAnimationFrame();
+        }
+        else {
+            requestAnimationFrame(loop)
+        }
     }
 
-    function majInfos() {
-        balls.sort((a, b) => a.nbcollisions - b.nbcollisions);
-        for(let i = 0; i < N_BALLS; i++)
-        {
-            ballsEl[i].textContent = balls[i].infos()
-        }
+    function majFrameRate() {
         span.textContent = ' ('+ frameRate +'fps)'
         frameRate = 0
     }
-    this.window.setInterval(majInfos, 1000)
+    this.window.setInterval(majFrameRate, 1000)
+    
+    function majInfos() {
+        if(!isPaused) {
+            balls.sort((a, b) => a.nbcollisions - b.nbcollisions);
+            for(let i = 0; i < N_BALLS; i++) {
+                ballsEl[i].textContent = balls[i].infos()
+            }
+        }
+    }
+    this.window.setInterval(majInfos, 100)
 
-    loop()
+    window.onkeydown = function(e) {
+         // Flips the pause state
+        if(e.key === "p") {
+            isPaused = !isPaused;
+            if (!isPaused) {
+                loop();
+            }
+        }
+    };
+
+    loop();
 })
